@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-app-member-detail {
+app-member-detail,
+app-member-edit {
   .tab-panel {
     border: 1px solid #ddd;
     padding: 10px;

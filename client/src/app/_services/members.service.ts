@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Member } from '../_models/member';
+import { of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,12 +10,33 @@ import { Member } from '../_models/member';
 export class MembersService {
   private http = inject(HttpClient);
   baseUrl = environment.apiUrl;
+  members = signal<Member[]>([]);
 
   getMembers() {
-    return this.http.get<Member[]>(this.baseUrl + 'users');
+    return this.http.get<Member[]>(this.baseUrl + 'users').subscribe({
+      next: (members) => this.members.set(members),
+    });
   }
 
   getMember(username: string) {
-    return this.http.get<Member>(this.baseUrl + 'users/' + username);
+    const member = this.members().find(
+      (member) => member.username === username
+    );
+
+    if (member) {
+      return of(member);
+    } else {
+      return this.http.get<Member>(this.baseUrl + 'users/' + username);
+    }
+  }
+
+  updateMember(member: Member) {
+    return this.http.put<Member>(this.baseUrl + 'users', member).pipe(
+      tap(() => {
+        this.members.update((members) =>
+          members.map((m) => (m.username === member.username ? member : m))
+        );
+      })
+    );
   }
 }
