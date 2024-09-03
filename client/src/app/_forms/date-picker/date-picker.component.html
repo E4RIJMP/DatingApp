@@ -1,0 +1,15 @@
+<div class="mb-3 form-floating">
+  <input
+    class="form-control"
+    [class.is-invalid]="control.touched && control.invalid"
+    [formControl]="control"
+    placeholder="{{ label() }}"
+    bsDatepicker
+    [bsConfig]="bsConfig"
+    [maxDate]="maxDate()"
+  />
+  <label>{{ label() }}</label>
+  @if (control.hasError('required')) {
+  <div class="invalid-feedback text-start">Please enter a {{ label() }}</div>
+  }
+</div>
