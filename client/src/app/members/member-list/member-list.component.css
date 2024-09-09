@@ -1,0 +1,8 @@
+:host {
+  .filter-input {
+    width: 70px;
+  }
+  .filter-select {
+    width: 130px;
+  }
+}
