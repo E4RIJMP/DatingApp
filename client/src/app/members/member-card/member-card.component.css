@@ -6,7 +6,7 @@
   }
 
   .card img {
-    transform: scale(1.0, 1.0);
+    transform: scale(1, 1);
     transition-duration: 500ms;
     transition-timing-function: ease-out;
   }
@@ -29,6 +29,10 @@
     margin-right: auto;
     margin-left: auto;
     opacity: 0;
+  }
+
+  .liked-icon {
+    color: red;
   }
 
   .animate {
