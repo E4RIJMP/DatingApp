@@ -1,0 +1,16 @@
+:host {
+  table {
+    cursor: pointer;
+  }
+  table thead tr th {
+    width: 20%;
+  }
+
+  table thead tr th:first-child {
+    width: 40%;
+  }
+
+  .rounded-circle {
+    max-height: 50px;
+  }
+}
