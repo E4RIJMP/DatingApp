@@ -28,7 +28,8 @@ public class MessagesController(IMessageRepository messageRepository,
         var sender = await userRepository.GetUserByUsernameAsync(senderUsername);
         var recipient = await userRepository.GetUserByUsernameAsync(recipientUsername);
 
-        if (recipient == null || sender == null)
+        if (recipient == null || sender == null || string.IsNullOrWhiteSpace(sender.UserName)
+            || string.IsNullOrWhiteSpace(recipient.UserName))
         {
             return BadRequest("Cannot send message at this time");
         }

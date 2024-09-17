@@ -1,0 +1,9 @@
+:host {
+  th {
+    width: 30%;
+  }
+
+  th:nth-child(2) {
+    width: 40%;
+  }
+}

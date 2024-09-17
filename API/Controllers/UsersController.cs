@@ -45,6 +45,7 @@ public class UsersController(
     [HttpPut]
     public async Task<ActionResult> UpdateUser(MemberUpdateDto memberUpdteDto)
     {
+        var username = User.GetUsername();
         var user = await userRepository.GetUserByUsernameAsync(User.GetUsername());
 
         if (user == null) return BadRequest("Could not find user");
