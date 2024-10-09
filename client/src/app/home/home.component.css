@@ -1,7 +1,5 @@
-:host {
-  .container {
-    .register {
-      text-align: center;
-    }
+.container {
+  .register {
+    text-align: center;
   }
 }

@@ -1,5 +1,3 @@
-:host {
-  .nv-file-over {
-    border: 3px dotted red;
-  }
+.nv-file-over {
+  border: 3px dotted red;
 }
