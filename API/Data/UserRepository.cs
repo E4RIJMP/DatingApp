@@ -72,11 +72,6 @@ public class UserRepository(DataContext context, IMapper mapper) : IUserReposito
         .ToListAsync();
     }
 
-    public async Task<bool> SaveAllAsync()
-    {
-        return await context.SaveChangesAsync() > 0;
-    }
-
     public void update(AppUser user)
     {
         context.Entry(user).State = EntityState.Modified;
