@@ -34,6 +34,7 @@ public class Seed
 
         foreach (var user in users)
         {
+            user.Photos.First().IsApproved = true;
             if (!string.IsNullOrWhiteSpace(user.UserName))
             {
                 user.UserName = user.UserName.ToLower();

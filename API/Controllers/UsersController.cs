@@ -30,7 +30,10 @@ public class UsersController(
     [HttpGet("{username}")]
     public async Task<ActionResult<MemberDto>> GetUser(string username)
     {
-        var user = await unitOfWork.UserRepository.GetMemberAsync(username);
+        var currentUsername = User.GetUsername();
+        var user = await unitOfWork.UserRepository.GetMemberAsync(
+            username, isCurrentUser: currentUsername == username
+        );
 
         if (user == null)
         {
@@ -73,11 +76,6 @@ public class UsersController(
             Url = result.SecureUrl.AbsoluteUri,
             PublicId = result.PublicId
         };
-
-        if (user.Photos.Count == 0)
-        {
-            photo.IsMain = true;
-        }
 
         user.Photos.Add(photo);
 
@@ -122,7 +120,7 @@ public class UsersController(
 
         if (user == null) return BadRequest("User not found");
 
-        var photo = user.Photos.FirstOrDefault(photo => photo.Id == photoId);
+        var photo = await unitOfWork.PhotoRepository.GetPhotoById(photoId);
 
         if (photo == null) return BadRequest("Photo not found");
         if (photo.IsMain) return BadRequest("Cannot delete main photo");
@@ -135,6 +133,7 @@ public class UsersController(
                 return BadRequest(result.Error.Message);
             }
         }
+
         user.Photos.Remove(photo);
 
         if (await unitOfWork.Complete()) return Ok();
